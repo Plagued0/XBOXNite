@@ -1,0 +1,101 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                    xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+                    mc:Ignorable="d">
+
+    <Style x:Key="DetailsViewItemTemplate" TargetType="{x:Type GameListItem}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type GameListItem}">
+                    <Border Name="PART_PanelHost" Padding="10,3,10,3" Background="Transparent" ToolTip="{Binding DisplayName}" ToolTipService.Placement="Center" ToolTipService.VerticalOffset="-30"
+                            d:DataContext="{x:Static DesignMainViewModel.DesignSelectedGameIntance}" Height="54.81" Width="82.068">
+                        <Grid Margin="0,0,0,-5.063" Width="58.503">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="auto" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*" />
+                                <RowDefinition Height="*" />
+                            </Grid.RowDefinitions>
+
+                            <Grid Grid.Column="1" Grid.RowSpan="2"
+                                  Name="PART_GridImageContener"
+                                  Height="40.109"
+                                  Margin="7.722,2,5,9.448"
+                                  VerticalAlignment="Center"
+                                  Tag="{PluginSettings Plugin=ThemeModifier, Path=EnableIntegrationIcon}">
+                                <Grid>
+                                    <Grid.Style>
+                                        <Style TargetType="{x:Type Grid}">
+                                            <Setter Property="Visibility" Value="Visible" />
+                                            <Style.Triggers>
+                                                <DataTrigger Binding="{Binding ElementName=PART_GridImageContener, Path=Tag}" Value="True">
+                                                    <Setter Property="Visibility" Value="Collapsed" />
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </Grid.Style>
+
+                                    <Image Name="PART_ImageIcon" RenderOptions.BitmapScalingMode="Fant" />
+                                </Grid>
+
+                                <!-- ThemeModifier view item -->
+                                <ContentControl x:Name="ThemeModifier_PluginIcon">
+                                    <ContentControl.Style>
+                                        <Style TargetType="{x:Type ContentControl}">
+                                            <Setter Property="Visibility" Value="Collapsed" />
+                                            <Style.Triggers>
+                                                <DataTrigger Binding="{Binding ElementName=PART_GridImageContener, Path=Tag}" Value="True">
+                                                    <Setter Property="Visibility" Value="Visible" />
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </ContentControl.Style>
+                                </ContentControl>
+                            </Grid>
+
+                            <TextBlock Text="{Binding DisplayName}" TextTrimming="CharacterEllipsis"
+                                       VerticalAlignment="Center" Name="PART_TbGameName"
+                                       Grid.Row="0" Grid.Column="1" Grid.RowSpan="3">
+                                <TextBlock.Style>
+                                    <Style TargetType="{x:Type TextBlock}" BasedOn="{StaticResource {x:Type TextBlock}}">
+                                        <Setter Property="Visibility" Value="Collapsed" />
+                                        <Style.Triggers>
+                                            <MultiDataTrigger>
+                                                <MultiDataTrigger.Conditions>
+                                                    <Condition Binding="{Binding ElementName=HowLongToBeat_PluginViewItem, Path=ActualHeight}" Value="0" />
+                                                    <Condition Binding="{Binding ElementName=CheckLocalizations_PluginViewItem, Path=ActualHeight}" Value="0" />
+                                                    <Condition Binding="{Binding ElementName=ScreenshotsVisualizer_PluginViewItem, Path=ActualHeight}" Value="0" />
+                                                    <Condition Binding="{Binding ElementName=SuccessStory_PluginViewItem, Path=ActualHeight}" Value="0" />
+                                                    <Condition Binding="{Binding ElementName=SystemChecker_PluginViewItem, Path=ActualHeight}" Value="0" />
+                                                </MultiDataTrigger.Conditions>
+                                                <Setter Property="Visibility" Value="Visible" />
+                                            </MultiDataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </TextBlock.Style>
+                            </TextBlock>
+
+                            <TextBlock Text="{Binding DisplayName}" TextTrimming="CharacterEllipsis"
+                                       VerticalAlignment="Center" 
+                                       Grid.Row="0" Grid.Column="1" Margin="0,0,0,-12" Visibility="Collapsed">
+                                <TextBlock.Style>
+                                    <Style TargetType="{x:Type TextBlock}" BasedOn="{StaticResource {x:Type TextBlock}}">
+                                        <Setter Property="Visibility" Value="Visible" />
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding ElementName=PART_TbGameName, Path=Visibility}" Value="Visible">
+                                                <Setter Property="Visibility" Value="Collapsed" />
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </TextBlock.Style>
+                            </TextBlock>
+                        </Grid>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+</ResourceDictionary>
